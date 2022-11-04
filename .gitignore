@@ -1,0 +1,15 @@
+# Dotenv
+.env
+
+# Python
+__pycache__/
+
+# Sqlite3
+*.sqlite3
+
+# Venv
+*_env
+
+# Packaging
+build/
+*.egg-info
