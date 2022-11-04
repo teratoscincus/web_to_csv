@@ -37,6 +37,10 @@ class Database:
         with open(schema) as f:
             self.connection.executescript(f.read())
 
+    def get_all_entries(self):
+        """Return rows as tuples nested in a list."""
+        return self.cur.execute("SELECT * FROM opinion_poll;").fetchall()
+
 
 if __name__ == "__main__":
     import traceback
