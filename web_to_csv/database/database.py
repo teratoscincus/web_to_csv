@@ -39,7 +39,7 @@ class Database:
 
     def get_all_entries(self):
         """Return rows as tuples nested in a list."""
-        return self.cur.execute("SELECT * FROM opinion_poll;").fetchall()
+        return self.cursor.execute("SELECT * FROM opinion_poll;").fetchall()
 
 
 if __name__ == "__main__":
