@@ -41,6 +41,10 @@ class Database:
         """Return rows as tuples nested in a list."""
         return self.cursor.execute("SELECT * FROM opinion_poll;").fetchall()
 
+    def get_number_of_entries(self):
+        """Return the total number of rows in database table as an integer."""
+        return self.cursor.execute("SELECT COUNT(id) FROM opinion_poll;").fetchone()[0]
+
 
 if __name__ == "__main__":
     import traceback
