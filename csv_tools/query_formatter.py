@@ -6,9 +6,9 @@ def get_formatted_sql_query():
     """
     Formats an sql query for writing to a CSV file.
 
-    Returns a formatted string.
+    Returns an integer number of entries and a string formatted for CSV format.
     """
-    query_results = get_query_results()
+    num_entries, query_results = get_query_results()
 
     # Format query result.
     entries = []
@@ -30,4 +30,6 @@ def get_formatted_sql_query():
         entries.append(entry)
 
     # Serialize list to string.
-    return "".join(entries)
+    csv_format = "".join(entries)
+
+    return num_entries, csv_format

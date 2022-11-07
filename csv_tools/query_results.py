@@ -8,7 +8,8 @@ def get_query_results():
     """
     Returns an unformatted SQL query.
 
-    Returns a list of tuples with column values from a database table.
+    Returns an integer number of entries and a list of tuples with column values from a
+    database table.
     NOTE: The table being queried is hardcoded.
     """
     # Try establishing a connection to the database.
@@ -25,6 +26,7 @@ def get_query_results():
 
         # Try querying the database.
         try:
+            num_entries = db.get_number_of_entries()
             query_results = db.get_all_entries()
         except:
             if not DEBUG:
@@ -35,4 +37,4 @@ def get_query_results():
         else:
             print("[\033[1;32mOK\033[0m] Database query successful")
 
-    return query_results
+    return num_entries, query_results
