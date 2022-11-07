@@ -1,6 +1,6 @@
 from time import sleep
 
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from sqlite3 import IntegrityError, OperationalError
 
 from .database.database import Database
@@ -27,7 +27,7 @@ def index():
         all_questions_answered = True
         answers = [q1_answer, q2_answer, q3_answer]
         for answer in answers:
-            if not answer or answer == "":
+            if not answer or answer == "" or answer == "Select your answer":
                 all_questions_answered = False
                 flash("An answer must be given for all questions")
                 break
@@ -39,9 +39,10 @@ def index():
                 db.cursor.execute(
                     f"""
                     INSERT INTO opinion_poll (q1, q2, q3)
-                    VALUES ('{q1_answer}', '{q2_answer}', '{q3_answer}');
-                    """
-                )  # TODO: Find better way to get table, and column names.
+                    VALUES (?, ?, ?);
+                    """,
+                    (q1_answer, q2_answer, q3_answer),
+                )
                 db.connection.commit()
             except OperationalError:
                 # Try committing again after 1 second.
@@ -50,6 +51,7 @@ def index():
             else:
                 db.connection.close()
                 return redirect(url_for("views.thankyou"))
+                # return render_template("thankyou.html")
 
         # Rerender form if not fully answered.
         return render_template("index.html", options=options)
